@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
-        'email',
+        'nama',
+        'kontak',
+        'username',
         'password',
+        'role'
     ];
 
     /**
@@ -30,7 +32,7 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        // 'remember_token',
     ];
 
     /**
@@ -45,4 +47,9 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function toko() 
+    {
+        return $this->hasOne(Toko::class, 'id_user');
+    }
+    
 }
