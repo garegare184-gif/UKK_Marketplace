@@ -47,6 +47,14 @@ public function listToko()
     return view('toko.index', compact('toko'));
 }
 
+public function beranda()
+{
+    $category = Category::all();
+    $product = Product::orderBy('id_produk','DESC')->take(8)->get();
+
+    return view('beranda', compact('category', 'product'));
+}
+
 
 
 }

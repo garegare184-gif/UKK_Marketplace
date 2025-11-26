@@ -93,18 +93,27 @@ class UserController extends Controller
         return view('produk', compact('product'));
     }
 
-    public function detail($id)
-    {
-        $product = Product::findOrFail($id);
 
-        return view('produk_detail', compact('product'));
+public function detail($id)
+{
+    $product = Product::where('id_produk', $id)->first();
+
+    if (!$product) {
+        return redirect('/')->with('error', 'Produk tidak ditemukan');
     }
-    public function kategori($id)
-    {
-        $Category = Category::findOrFail($id);
-        $product = Product::where('id_kategori', $id)->get();
+
+    $category = Category::all();
+
+    return view('produk_detail', compact('product', 'category'));
+}
+
+public function kategori($id)
+{
+    $kategori = Category::findOrFail($id);
+    $product = Product::where('id_kategori', $id)->get();
         
-        return view('kategori', compact('kategori', 'product'));
-    }
+    return view('kategori', compact('kategori', 'product'));
+}
+
 }
 

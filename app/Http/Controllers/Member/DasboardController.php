@@ -13,7 +13,7 @@ class DasboardController extends Controller
         // Ambil toko milik user login
         $toko = Toko::where('id_user', session('id_user'))->first();
 
-        // Jika user belum punya toko
+        // Jika user belum punya toko percabangan
         if (!$toko) {
             $totalProduct = 0;
         } else {

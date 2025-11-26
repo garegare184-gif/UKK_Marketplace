@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $data = Category::all();
+        $data = Category::all();//mengmbil semua data
         return view('admin.kategori.index', compact('data'));
     }
 

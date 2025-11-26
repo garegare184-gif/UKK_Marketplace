@@ -11,7 +11,7 @@ class TokoController extends Controller
     // Toko Saya
     public function index()
     {
-        $toko = Toko::where('id_user', session('id_user'))->first();
+        $toko = Toko::where('id_user', session('id_user'))->first(); // mengambil data prtaama
         return view('member.toko.index', compact('toko'));
     }
 

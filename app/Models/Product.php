@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    //
     protected $table = 'products';
     protected $primaryKey = 'id_produk';
+    public $incrementing = true;
+    public $keyType = 'int';
 
     protected $fillable = [
         'id_kategori',
@@ -20,14 +21,15 @@ class Product extends Model
         'tanggal_upload',
         'gambar'
     ];
-    // RELASI KE KATEGORI
+
     public function kategori()
     {
-    return $this->belongsTo(Category::class, 'id_kategori');
+        return $this->belongsTo(Category::class, 'id_kategori');
     }
-    // RELASI KE TOKO
+
     public function toko()
     {
         return $this->belongsTo(Toko::class, 'id_toko');
     }
 }
+

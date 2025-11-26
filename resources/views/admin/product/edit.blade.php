@@ -1,78 +1,140 @@
 @extends('admin.dashboard')
 
 @section('content')
+
+<style>
+    :root {
+        --burgundy: #800020;
+        --burgundy-light: #a8324c;
+        --soft-bg: #f9f0f3;
+    }
+
+    h3 {
+        color: var(--burgundy);
+        font-weight: 700;
+        animation: fadeDown 0.6s ease-out;
+    }
+
+    form {
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        animation: fadeIn 0.8s ease-in-out;
+        border-top: 4px solid var(--burgundy);
+    }
+
+    label.form-label {
+        font-weight: 600;
+        color: var(--burgundy);
+    }
+
+    .form-control,
+    .form-select {
+        transition: 0.3s ease;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: var(--burgundy);
+        box-shadow: 0 0 6px rgba(128, 0, 32, 0.4);
+    }
+
+    .btn-burgundy {
+        background-color: var(--burgundy);
+        border-color: var(--burgundy);
+        color: #fff;
+        transition: 0.3s ease;
+        padding: 8px 18px;
+        font-weight: 600;
+    }
+
+    .btn-burgundy:hover {
+        background-color: var(--burgundy-light);
+        border-color: var(--burgundy-light);
+        transform: translateY(-2px);
+    }
+
+    /* Gambar preview animasi */
+    img {
+        border-radius: 5px;
+        animation: fadeIn 0.7s ease-in-out;
+    }
+
+    /* Animasi */
+    @keyframes fadeDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+</style>
+
 <h3 class="mb-3">Edit Produk</h3>
 
 <form action="/admin/products/update/{{ $product->id_produk }}" method="POST" enctype="multipart/form-data">
     @csrf
 
-    <!-- pilih kategori -->
     <div class="mb-3">
         <label class="form-label">Kategori</label>
         <select name="id_kategori" class="form-select">
             @foreach($kategori as $k)
-                <option value="{{ $k->id }}"
-                    @if($k->id == $product->id_kategori) selected @endif>
+                <option value="{{ $k->id }}" @if($k->id == $product->id_kategori) selected @endif>
                     {{ $k->nama_kategori }}
                 </option>
             @endforeach
         </select>
     </div>
 
-    <!-- pilih toko -->
     <div class="mb-3">
         <label class="form-label">Toko</label>
         <select name="id_toko" class="form-select">
             @foreach($toko as $t)
-                <option value="{{ $t->id }}"
-                    @if($t->id == $product->id_toko) selected @endif>
+                <option value="{{ $t->id }}" @if($t->id == $product->id_toko) selected @endif>
                     {{ $t->nama_toko }}
                 </option>
             @endforeach
         </select>
     </div>
 
-    <!-- nama produk -->
     <div class="mb-3">
         <label class="form-label">Nama Produk</label>
         <input type="text" name="nama_produk" class="form-control" value="{{ $product->nama_produk }}">
     </div>
 
-    <!-- harga -->
     <div class="mb-3">
         <label class="form-label">Harga</label>
         <input type="number" name="harga" class="form-control" value="{{ $product->harga }}">
     </div>
 
-    <!-- stok -->
     <div class="mb-3">
         <label class="form-label">Stok</label>
         <input type="number" name="stok" class="form-control" value="{{ $product->stok }}">
     </div>
 
-    <!-- deskripsi -->
     <div class="mb-3">
         <label class="form-label">Deskripsi</label>
         <textarea name="deskripsi" class="form-control">{{ $product->deskripsi }}</textarea>
     </div>
 
-    <!-- gambar sekarang -->
     <div class="mb-3">
         <label class="form-label">Gambar Saat Ini</label><br>
         @if($product->gambar)
-            <img src="/uploads/{{ $product->gambar }}" width="100">
+            <img src="/uploads/{{ $product->gambar }}" width="120">
         @else
             <small>Tidak ada gambar</small>
         @endif
     </div>
 
-    <!-- upload gambar baru -->
     <div class="mb-3">
         <label class="form-label">Gambar Baru (opsional)</label>
         <input type="file" name="gambar" class="form-control">
     </div>
 
-    <button class="btn btn-success">Update Produk</button>
+    <button class="btn btn-burgundy">Update Produk</button>
 </form>
 
 @endsection

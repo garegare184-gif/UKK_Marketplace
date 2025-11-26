@@ -17,7 +17,7 @@ class AdminProductController extends Controller
 
     public function create()
     {
-        $kategori = Category::all();
+        $kategori = Category::all(); //mengammbil semua
         $toko = Toko::all();
         return view('admin.product.create', compact('kategori','toko'));
     }
